@@ -1,0 +1,53 @@
+…or create a new repository on the command line
+echo "# anketa" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/smishchuk/anketa.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/smishchuk/anketa.git
+git branch -M main
+git push -u origin main
+
+git remote add origin https://github.com/smishchuk/anketa.git
+git branch -M master
+git push -u origin master
+
+root@dat-n-smishch1 MINGW64 /d/backup/wwwroot.old/anketa6 (master)
+$ git remote add origin https://github.com/smishchuk/anketa.git
+
+root@dat-n-smishch1 MINGW64 /d/backup/wwwroot.old/anketa6 (master)
+$ git branch -M master
+
+root@dat-n-smishch1 MINGW64 /d/backup/wwwroot.old/anketa6 (master)
+$ git push -u origin master
+Enumerating objects: 105, done.
+Counting objects: 100% (105/105), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (97/97), done.
+Writing objects: 100% (105/105), 225.96 KiB | 5.79 MiB/s, done.
+Total 105 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), done.
+To https://github.com/smishchuk/anketa.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+
+
+appserver не может приконнектиться
+https://www.dbi-services.com/blog/modifying-pg_hba-conf-from-inside-postgresql/
+SELECT rolname, rolpassword FROM pg_authid;
+https://stackoverflow.com/questions/3862648/how-to-use-install-dblink-in-postgresql
+SELECT logindate FROM dblink('host=dev.toto.com
+                              user=toto
+                              password=isok
+                              dbname=totofamily', 'SELECT logindate FROM loginlog');
+
+SELECT resp FROM dblink('host=localhost
+                              user=test
+                              password=password
+                              dbname=test', 'SELECT 200 as reps');
+ERROR:  function dblink(unknown, unknown) does not exist опаньки
+CREATE EXTENSION dblink SCHEMA public;
+ 
