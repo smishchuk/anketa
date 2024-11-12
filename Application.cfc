@@ -12,10 +12,12 @@
   	<cfset this.sessiontimeout=CreateTimeSpan(0, 0, 120, 0)/>
   	<cfset this.setclientcookies="No"/>
 	
-	<cfset getDS("anketa","cfconfig_datasources_anketa")/><!--- datasource name, environment variable prefix without "_" --->
 	<cfset this.datasource = "anketa"/><!--- default datasource name --->
-	
 	<cfset request.DS = "#this.datasource#">
+	<cfset getDS("#this.datasource#","cfconfig_datasources_#this.datasource#")/><!--- datasource name, environment variable prefix without "_" --->
+	
+	
+	
 	<cfset request.thisPage=getFileFromPath(getBaseTemplatePath())>
 
 <!--- правильно ли определять тут прикладные переменные? категорически неправильно! например, тут сессии не видно. И вообще это инфраструктурная секция --->
@@ -93,10 +95,15 @@
 		</cflock>
 		
 		
-		
+		<cftry>
 		<cfquery name="qIsolation">
-		set transaction isolation level read uncommitted
+		set transaction isolation level read uncommitted;
 		</cfquery>
+			<cfcatch type="any">
+				<cfdump var=#createObject("java", "java.lang.System").getEnv()#/>
+				<cfdump var=#this#/>
+			</cfcatch>
+		</cftry>
 
 		<cfquery name="qResponse" datasource="#request.DS#">
 		select response_id as response_id, dt_completed from response where respondent_id=#request.respondent_id# 

@@ -3,9 +3,13 @@ select question_id, question_type, title, (case when length(COALESCE(annonce,'')
 from question 
 where parent_id is null order by ord
 </cfquery>
-<cfquery name="qSubject" datasource="#request.DS#">
+<!--- <cfquery name="qSubject" datasource="#request.DS#">
 	select usr_id, shortname from usr 
 	where usr_id=<cfqueryparam cfsqltype="cf_sql_integer" value="#request.target_usr_id#" null=#!(request.target_usr_id GT 0)#/>
+</cfquery> --->
+<cfquery name="qSubject" datasource="#request.DS#">
+	select u.login, u.firstname, u.middlename, u.lastname from respondent u
+	where u.respondent_id=<cfqueryparam cfsqltype="cf_sql_integer" value=#request.target_usr_id# null=#!(request.target_usr_id GT 0)#/>
 </cfquery>
 
 <!-- page -->
@@ -23,7 +27,7 @@ where parent_id is null order by ord
 	<a href="index.cfm">Опрос 360 градусов</a>
 	<div style="height:10px">&nbsp;</div>
 			
-<div style="text-align:right;color:#cb3945; padding-right:20px;"><cfoutput query="qSubject">Оцениваемый сотрудник: #shortname#</cfoutput></div>			
+<div style="text-align:right;color:#cb3945; padding-right:20px;"><cfoutput query="qSubject">Оцениваемый сотрудник: #firstname# #middlename# #lastname# [#login# #request.target_usr_id#]</cfoutput></div>			
 <table border="0" cellpadding="0" cellspacing="0" class="voteMenu">
 <tr><td align="center" valign="middle">		
 	
