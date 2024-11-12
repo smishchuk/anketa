@@ -12,10 +12,7 @@
   	<cfset this.sessiontimeout=CreateTimeSpan(0, 0, 120, 0)/>
   	<cfset this.setclientcookies="No"/>
 	
-	<cfset this.datasource = "anketa"/><!--- default datasource name --->
-	<cfset request.DS = "#this.datasource#">
-	<cfset getDS("#this.datasource#","cfconfig_datasources_#this.datasource#")/><!--- datasource name, environment variable prefix without "_" --->
-	
+		
 	
 	
 	<cfset request.thisPage=getFileFromPath(getBaseTemplatePath())>
@@ -61,11 +58,20 @@
 		<cfset setEncoding("URL", "UTF-8")>
 	
 		<!--- global settings --->
+		
+	<cfset this.datasource = "anketa"/><!--- default datasource name --->
+	<cfset this.defaultdatasource = this.datasource/><!--- default datasource name --->
+	<cfset request.DS = "#this.datasource#">
+	<cfset this.datasources["#this.datasource#"]=getDS("#this.datasource#","cfconfig_datasources_#this.datasource#")/><!--- datasource name, environment variable prefix without "_" --->
+	
+		
 		<cfset request.APP_VERSION="0.00.001"/><!---2024-10-13 15:26:10--->		
 		<cflock scope="application" type="readonly" timeout=3>
 			<cfset request.DS=this.datasource/>
 			<cfset request.APP_NAME=this.Name/>
 		</cflock>
+		
+		
 		
 		<cfset request.respondent_id=-1>
 		<cfset request.target_usr_id=-1>
@@ -96,12 +102,13 @@
 		
 		
 		<cftry>
-		<cfquery name="qIsolation">
+		<cfquery name="qIsolation" datasource="#request.DS#">
 		set transaction isolation level read uncommitted;
 		</cfquery>
 			<cfcatch type="any">
-				<cfdump var=#createObject("java", "java.lang.System").getEnv()#/>
+				<cfdump var=#cfcatch#/>
 				<cfdump var=#this#/>
+				<cfdump var=#createObject("java", "java.lang.System").getEnv()#/>	
 			</cfcatch>
 		</cftry>
 
@@ -190,7 +197,7 @@
 	<cffunction
         name="getDS"
         access="private"
-        returntype="void"
+        returntype="struct"
         output="false"
         hint="Configure data source from environment variables. Convention: data source name is an environment varialble prefix">
 		
@@ -206,9 +213,8 @@
 				<cfset structInsert(ds,field,value)/>
 			</cfif>			
 		</cfloop>		
-		
-		<cfset THIS.datasources[dsname] = ds> 
-        <cfreturn />
+
+        <cfreturn ds/>
 		<!--- this.datasources["cmdb"] = {
 			class: "org.postgresql.Driver", 
 			bundleName: "org.postgresql.jdbc", 

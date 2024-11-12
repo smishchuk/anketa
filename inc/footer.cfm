@@ -3,7 +3,7 @@
 		<!-- footer -->
 		<div style="text-align: right; margin: 10px 20px 10px 10px;">
 			
-			<cfquery name="qRespondent">
+			<cfquery name="qRespondent" datasource="#request.DS#">
 				select u.login, u.firstname, u.middlename, u.lastname from respondent u
 				where u.respondent_id=<cfqueryparam cfsqltype="cf_sql_integer" value=#request.respondent_id#/>
 			</cfquery>
