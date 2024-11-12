@@ -1,5 +1,5 @@
 <cfquery name="qMenu" datasource="#request.DS#">
-select question_id, question_type, title, (case when datalength(isnull(annonce,''))=0 then descr else annonce end) as annonce, ord 
+select question_id, question_type, title, (case when length(COALESCE(annonce,''))=0 then descr else annonce end) as annonce, ord 
 from question 
 where parent_id is null order by ord
 </cfquery>

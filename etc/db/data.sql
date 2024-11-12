@@ -51,6 +51,17 @@ SELECT setval(pg_get_serial_sequence('respondent', 'respondent_id'), coalesce(MA
 
 
 
+insert into usr (firstname,middlename,lastname,login,password,email,phone_cell)	values 
+	('test:Иван', 'test:Иванович','test:Иванов','iii','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','asdfgh@mail.ru',null),
+	('test:Жанна', 'test:Ивановна','test:Иванова','test2','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','a2@mail.ru',null),
+	('test3:Имя','test3:Отчество','test3:Фамилия','test303','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','a3@mail.ru',null),
+	('test4:Имя','test4:Отчество','test4:Фамилия','test304','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','a4@mail.ru',null),
+	('test5:Имя','test3:Отчество','test5:Фамилия','test305','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','a5@mail.ru',null),
+	('test6:Имя','test6:Отчество','test6:Фамилия','test306','$argon2id$v=19$m=500,t=3,p=4$d37RBdizC3rwQfINGSoQmg$Bwvr1f+RQf9hpXwV58sgUYzYpupp7iUzfUBACGApT80','a6@mail.ru',null)
+;
+
+
+
 insert into questionary (questionary_id,title,descr)
 values(1,'Опрос 360 градусов','Опрос по оценке 360 градусов');
 
@@ -60,9 +71,12 @@ insert into response (respondent_id, questionary_id,target_usr_id) values
 (1,1,2),
 (1,1,3),
 (1,1,4),
-(2,1,1),
-(2,1,3),
-(2,1,4),
+(2,1,10),
+(2,1,11),
+(2,1,12),
+(2,1,13),
+(2,1,14),
+(2,1,15),
 (3,1,1),
 (3,1,2),
 (3,1,4)

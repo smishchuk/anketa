@@ -8,7 +8,7 @@
 		select q.question_id, q.parent_id, q.question_type, q.template, q.ord 
 		from question q 
 		join answer a on (a.question_id=1 /* *** */AND a.response_id='#request.response_id#')
-		join choice c on (c.choice_id=a.choice_id AND convert(varchar,c.choice)=q.title)
+		join choice c on (c.choice_id=a.choice_id AND (c.choice)=q.title)
 		where q.parent_id='#ATTRIBUTES.parent_id#' order by q.ord
 	</cfquery>
 	<cfif qRead.recordCount EQ 0>

@@ -1,6 +1,6 @@
 <!--- <cfquery name=qSiblings datasource="#request.DS#">
-select q.question_id, isnull(q.parent_id,0) as parent_id from question q 
-join question q1 on (isnull(q1.parent_id,0)=isnull(q.parent_id,0))
+select q.question_id, COALESCE(q.parent_id,0) as parent_id from question q 
+join question q1 on (COALESCE(q1.parent_id,0)=COALESCE(q.parent_id,0))
 where q1.question_id=#request.question_id#
 order by q.ord
 </cfquery> --->
@@ -16,7 +16,7 @@ order by q.ord
 	<cfquery name="qSiblings" datasource="#request.DS#">
 	select q.question_id from question q 
 	join answer a on (a.question_id=1 /* *** */AND a.response_id='#request.response_id#')
-	join choice c on (c.choice_id=a.choice_id AND convert(varchar,c.choice)=q.title)
+	join choice c on (c.choice_id=a.choice_id AND (c.choice)=q.title)
 	where q.parent_id=2 /* *** */
 	</cfquery>
 <cfelse>

@@ -5,12 +5,13 @@
 	<cfquery name="qRead" datasource="#request.DS#">
 	select respondent_id from respondent where passwd='#key#' 
 	</cfquery>	
-	
+
 	<cfif qRead.recordCount GT 0>
 		<cflock scope="SESSION" type="EXCLUSIVE" timeout=1>
 			<cfset session.respondent_id=qRead.respondent_id>
 		</cflock>
-		<cflocation url="index.cfm" addtoken="No">
+
+		<cflocation url="index.cfm" addtoken="No"/>
 	<cfelse>
 		<cfset msg="Вы ввели несуществующий ключ. <br>Пожалуйста, повторите попытку.">	
 	</cfif>

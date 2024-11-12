@@ -3,23 +3,7 @@
 	update response set dt_completed=getdate() where questionary_id='#request.questionary_id#' AND response_id='#request.response_id#'
 	</cfquery> 
 	
-	<!---
-	<cfquery name="qClearQ2" datasource="#request.DS#">
-	delete from answer where answer_id in (
-	select a1.answer_id from question q1 
-		join question q on q.parent_id=q1.question_id 
-		join answer a1 on a1.question_id=q.question_id
-	where not (q1.question_id in (
-		select q2.question_id
-		from question q2 
-		join answer a2 on (a2.question_id=1 /* *** */AND a2.response_id='#request.response_id#')
-		join choice c2 on (c2.choice_id=a2.choice_id AND convert(varchar(255),c2.choice)=q2.title)
-		where q2.parent_id='2')
-	) 
-	AND q1.parent_id='2' AND a1.response_id = '#request.response_id#'	
-	) 
-	</cfquery>
-	--->
+
 	<cflock scope="SESSION" type="EXCLUSIVE" timeout=1>	
 		<cfset structDelete(session, "target_usr_id")/>
 		<cfset structDelete(session, "response_id")/>

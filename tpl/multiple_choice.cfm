@@ -83,7 +83,7 @@
 	<cfquery name="qExt" datasource="#request.DS#">
 	select a.answer_id, a.choice_id, a.answer_text, a.ord 
 	from question q join answer a on (a.question_id=q.question_id AND a.response_id='#request.response_id#')
-	where q.question_id='#attributes.question_id#' and datalength(answer_text)>0
+	where q.question_id='#attributes.question_id#' and length(answer_text)>0
 	order by a.ord
 	</cfquery>	
 

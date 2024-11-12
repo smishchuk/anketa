@@ -15,7 +15,7 @@ select question_id, question_type, template from question where question_id='#AT
 		select q.question_id 
 		from question q 
 		join answer a on (a.question_id=1 /* *** */AND a.response_id='#request.response_id#')
-		join choice c on (c.choice_id=a.choice_id AND convert(varchar,c.choice)=q.title)
+		join choice c on (c.choice_id=a.choice_id AND (c.choice)=q.title)
 		where q.parent_id='#ATTRIBUTES.root_question_id#' order by q.ord
 	</cfquery>
 			
@@ -102,7 +102,7 @@ select * from question where question_id='#ATTRIBUTES.question_id#'
 <cfquery name="qRootGroup" datasource="#request.DS#">
 select q.title, q.question_id, q.enumeration_id, a.answer_id, c.choice from question q 
 join answer a on (a.question_id=1 /* *** */AND a.response_id='#request.response_id#')
-join choice c on (c.choice_id=a.choice_id AND convert(varchar,c.choice)=q.title)
+join choice c on (c.choice_id=a.choice_id AND (c.choice)=q.title)
 where q.parent_id='#ATTRIBUTES.root_question_id#'
 </cfquery>
 

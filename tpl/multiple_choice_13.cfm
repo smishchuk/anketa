@@ -84,13 +84,13 @@
 	<cfquery name="qQuestion" datasource="#request.DS#">
 	select q.question_id, q.title, c.choice_id, c.choice, a.choice_id as selected_choice_id from question q1
 	join question q on q.parent_id=q1.question_id
-	join choice c on (c.enumeration_id=7 /* *** */ AND convert(varchar(255),c.choice)=q.title)
+	join choice c on (c.enumeration_id=7 /* *** */ AND (c.choice)=q.title)
 	left outer join answer a on (a.choice_id=c.choice_id AND a.question_id='#request.question_id#' AND a.response_id='#request.response_id#')
 	where not (q1.question_id in (
 		select q2.question_id
 		from question q2 
 		join answer a2 on (a2.question_id=1 /* *** */AND a2.response_id='#request.response_id#')
-		join choice c2 on (c2.choice_id=a2.choice_id AND convert(varchar(255),c2.choice)=q2.title)
+		join choice c2 on (c2.choice_id=a2.choice_id AND (c2.choice)=q2.title)
 		where q2.parent_id='2')
 	) AND q1.parent_id='2'
 	 order by q1.ord
@@ -100,11 +100,9 @@
 	<cfquery name="qExt" datasource="#request.DS#">
 	select a.answer_id, a.choice_id, a.answer_text, a.ord 
 	from question q join answer a on (a.question_id=q.question_id AND a.response_id='#request.response_id#')
-	where q.question_id='#attributes.question_id#' and datalength(answer_text)>0
+	where q.question_id='#attributes.question_id#' and length(answer_text)>0
 	order by a.ord
 	</cfquery>
-
-	
 
 	<cfset choiceList="">	
 	<cfloop query="qChoice">
