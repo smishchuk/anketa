@@ -1,13 +1,16 @@
 SET ROLE dbo;
-/*
-GRANT USAGE ON SCHEMA cmdb TO appserver;
-GRANT ALL ON ALL TABLES IN SCHEMA cmdb TO appserver;
-GRANT ALL ON ALL SEQUENCES IN SCHEMA cmdb TO appserver;
+
+--CREATE SCHEMA public IF NOT EXISTS; -- инициализацию базы не нужно выполнять под appserver, слишком много прав нужно. Так что идея создания БД при инициализации приложения пока не имеет простого и безопасного 
+
+ решения
+GRANT USAGE ON SCHEMA public TO appserver;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO appserver;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO appserver;
 --ALTER DEFAULT PRIVILEGES IN SCHEMA cmdb GRANT ALL ON TABLES TO appserver;
 --ALTER DEFAULT PRIVILEGES IN SCHEMA cmdb GRANT ALL ON SEQUENCES TO appserver;
 ALTER DEFAULT PRIVILEGES FOR ROLE dbo GRANT ALL ON TABLES TO appserver;
 ALTER DEFAULT PRIVILEGES FOR ROLE dbo GRANT ALL ON SEQUENCES TO appserver;
-*/
+
 
 drop table if exists respondent;
 create table respondent(

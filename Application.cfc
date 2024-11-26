@@ -28,6 +28,7 @@
      /> 
 	<!--- эспериментально установлено, что cfquery в этой секции не видит DATASOURCES, определенных здесь же. А в методе onRequest - видит --->
 	<!--- эспериментально установлено, что сессия, видимая в методах и дальше в страницах, здесь не видна --->
+	<!--- Некорректно сконфигурированный датасорс, помещенный в  коллекцию this.datasources, не виден в ней! cfquery ругается не на некорректный источник данных, а на то, что такого источника нет! То ли сеттер такой слишком умный. По всей видимости, набор параметров может работать на одной платформе и не работать на другой (скажем, Commandbox и обычная Lucee). Соответствующую ошибку можно очень долго искать. --->
 	
 <!--- --------------------------------------------------------------------- --->
 <!--- закончили псевдоконструктор см.тж. https://www.bennadel.com/blog/4269-dynamically-enabling-disabling-session-management-in-lucee-cfml-5-3-8-201.htm  --->
@@ -59,19 +60,16 @@
 	
 		<!--- global settings --->
 		
-	<cfset this.datasource = "anketa"/><!--- default datasource name --->
-	<cfset this.defaultdatasource = this.datasource/><!--- default datasource name --->
-	<cfset request.DS = "#this.datasource#">
-	<cfset this.datasources["#this.datasource#"]=getDS("#this.datasource#","cfconfig_datasources_#this.datasource#")/><!--- datasource name, environment variable prefix without "_" --->
-	
+		<cfset this.datasource = "anketa"/><!--- default datasource name --->
+		<cfset this.defaultdatasource = this.datasource/><!--- default datasource name --->
+		<cfset request.DS = "#this.datasource#">
+		<cfset this.datasources["#this.datasource#"]=getDS("#this.datasource#","cfconfig_datasources_#this.datasource#")/><!--- datasource name, environment variable prefix without "_" --->	
 		
 		<cfset request.APP_VERSION="0.00.001"/><!---2024-10-13 15:26:10--->		
 		<cflock scope="application" type="readonly" timeout=3>
 			<cfset request.DS=this.datasource/>
 			<cfset request.APP_NAME=this.Name/>
 		</cflock>
-		
-		
 		
 		<cfset request.respondent_id=-1>
 		<cfset request.target_usr_id=-1>
@@ -98,19 +96,23 @@
 					<cflocation url="login.cfm" addtoken="No">
 				</cfif>
 			</cfif>
-		</cflock>
-		
+		</cflock>		
 		
 		<cftry>
-		<cfquery name="qIsolation" datasource="#request.DS#">
-		set transaction isolation level read uncommitted;
-		</cfquery>
+			<cfquery name="qIsolation" datasource="#request.DS#">
+			set transaction isolation level read uncommitted;
+			</cfquery>
+			
 			<cfcatch type="any">
 				<cfdump var=#cfcatch#/>
 				<cfdump var=#this#/>
 				<cfdump var=#createObject("java", "java.lang.System").getEnv()#/>	
 			</cfcatch>
 		</cftry>
+		
+		
+		<cfset dbInit()/>
+		
 
 		<cfquery name="qResponse" datasource="#request.DS#">
 		select response_id as response_id, dt_completed from response where respondent_id=#request.respondent_id# 
@@ -190,6 +192,8 @@
 		<cfcookie name="CFTOKEN" value="#session.CFTOKEN#">
 		
 		<cfinclude template="#ARGUMENTS.template#"/>
+		
+		
 
         <cfreturn />
     </cffunction>
@@ -237,6 +241,22 @@
         output="true"
         hint="Fires after the page processing is complete.">
 		<!--- Attention! Before CF9, OnrequestEnd is not executed in case of redirect. That is why we use session.save_login --->
+        <cfreturn />
+    </cffunction>
+	
+	<cffunction
+        name="dbInit"
+        access="public"
+        returntype="void"
+        output="true"
+        hint="Init the database">
+		<!--- should specify datasource, too early call --->
+		<cfquery name="dbInit" datasource="#request.DS#">
+			<cfinclude template="etc/db/anketa.sql"/>
+		</cfquery>
+		<cfdump var=#dbInit#/>
+		<cfabort/>
+		
         <cfreturn />
     </cffunction>
 
