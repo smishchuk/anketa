@@ -111,7 +111,7 @@
 		</cftry>
 		
 		
-		<cfset dbInit()/>
+		<!--- <cfset dbInit()/> --->
 		
 
 		<cfquery name="qResponse" datasource="#request.DS#">
@@ -244,7 +244,7 @@
         <cfreturn />
     </cffunction>
 	
-	<cffunction
+<!--- 	<cffunction
         name="dbInit"
         access="public"
         returntype="void"
@@ -258,6 +258,6 @@
 		<cfabort/>
 		
         <cfreturn />
-    </cffunction>
+    </cffunction> --->
 
 </cfcomponent>
