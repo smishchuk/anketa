@@ -198,41 +198,7 @@
         <cfreturn />
     </cffunction>
 	
-	<cffunction
-        name="getDS"
-        access="private"
-        returntype="struct"
-        output="false"
-        hint="Configure data source from environment variables. Convention: data source name is an environment varialble prefix">
-		
-		<cfargument name="dsname" type="string" required="true"/>
-		<cfargument name="prefix" type="string" default=#dsname#/>
-		
-		<cfset system = createObject("java", "java.lang.System")/>
-		<cfset var ds={}/>
-		
-		<cfloop list="class,connectionString,database,driver,dbdriver,host,port,type,url,username,password,bundleName,bundleVersion,connectionLimit,liveTimeout,validate" item="field"><!--- driver vs dbdriver --->
-			<cfset var value=system.getEnv("#arguments.prefix#_#field#")/>
-			<cfif isDefined("value") AND len(value)>
-				<cfset structInsert(ds,field,value)/>
-			</cfif>			
-		</cfloop>		
 
-        <cfreturn ds/>
-		<!--- this.datasources["cmdb"] = {
-			class: "org.postgresql.Driver", 
-			bundleName: "org.postgresql.jdbc", 
-			bundleVersion: "42.6.0",
-			connectionString: "jdbc:postgresql://localhost:5432/cmdb-prod",
-			username: "appserver",
-			password: "encrypted:*********************",
-			
-			// optional settings
-			connectionLimit:5, // default:-1
-			liveTimeout:15, // default: -1; unit: minutes
-			validate:false, // default: false
-		}; --->
-    </cffunction>
 
     <cffunction
         name="OnRequestEnd"
@@ -259,5 +225,45 @@
 		
         <cfreturn />
     </cffunction> --->
+	
+	<cffunction
+        name="getDS"
+        access="private"
+        returntype="struct"
+        output="true"
+        hint="Configure data source from environment variables. Convention: data source name is an environment varialble prefix">
+		
+		<cfargument name="dsname" type="string" required="true"/>
+		<cfargument name="prefix" type="string" default=#dsname#/>
+		
+		<cfset system = createObject("java", "java.lang.System")/>
+		<cfset var ds={}/>
+		
+		<cfloop list="class,connectionString,database,driver,dbdriver,host,port,type,url,username,password,bundleName,bundleVersion,connectionLimit,liveTimeout,validate" item="field"><!--- driver vs dbdriver --->
+			<cfset var value=system.getEnv("#arguments.prefix#_#field#")/>
+			<cfif isDefined("value") AND len(value)>
+				<cfset structInsert(ds,field,value)/>
+			</cfif>			
+		</cfloop>		
+		
+		test datasource (just to get exception if invalid)
+		<cfquery name="qTestDs" datasource=#ds#>
+			select 1;
+		</cfquery>
+
+        <cfreturn ds/>
+		<!--- this.datasources["cmdb"] = {
+			class: "org.postgresql.Driver", 
+			//bundleName: "org.postgresql.jdbc", 
+			//bundleVersion: "42.6.0",
+			connectionString: "jdbc:postgresql://localhost:5432/cmdb-prod",
+			username: "appserver",
+			password: "encrypted:*********************",			
+			// optional settings
+			connectionLimit:5, // default:-1
+			liveTimeout:15, // default: -1; unit: minutes
+			validate:false, // default: false
+		}; --->
+    </cffunction>
 
 </cfcomponent>
