@@ -246,7 +246,7 @@
 			</cfif>			
 		</cfloop>		
 		
-		test datasource (just to get exception if invalid)
+		<!--- test datasource (just to get exception if invalid) --->
 		<cfquery name="qTestDs" datasource=#ds#>
 			select 1;
 		</cfquery>
