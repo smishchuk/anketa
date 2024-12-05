@@ -247,7 +247,6 @@
 		</cfloop>		
 		
 		<!--- test datasource (just to get exception if invalid) --->
-		В Бабруйск животное!!!
 		<cfquery name="qTestDs" datasource=#ds#>
 			select 1;
 		</cfquery>
