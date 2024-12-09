@@ -25,9 +25,13 @@
 </p>
 
 <cfquery name="qTargetUsr" datasource="#request.DS#">
-	select r.target_usr_id, u.firstname, u.middlename, u.lastname from response r join respondent u on (r.target_usr_id=u.respondent_id)
-	where r.respondent_id=<cfqueryparam cfsqltype="cf_sql_integer" value='#request.respondent_id#'/> AND r.dt_completed is null
+	select r.target_usr_id, u.firstname, u.middlename, u.lastname 
+	from response r 
+	join respondent u on (r.target_usr_id=u.respondent_id)
+	where r.respondent_id=<cfqueryparam cfsqltype="cf_sql_integer" value='#request.respondent_id#'/> --AND r.dt_completed is null
 </cfquery>
+<!--- <cfdump var=#qTargetUsr#/> --->
+
 Пожалуйста, выбери оцениваемого сотрудника:
 <cfmodule template="../mod/combo.cfm" query=#qTargetUsr# combo="target_usr_id" id="target_usr_id" key="target_usr_id" selected="#request.target_usr_id#"
 			displayf="##firstname## ##middlename## ##lastname##" 

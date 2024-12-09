@@ -27,7 +27,7 @@ where parent_id is null order by ord
 	<a href="index.cfm">Опрос 360 градусов</a>
 	<div style="height:10px">&nbsp;</div>
 			
-<div style="text-align:right;color:#cb3945; padding-right:20px;"><cfoutput query="qSubject">Оцениваемый сотрудник: #firstname# #middlename# #lastname# [#login# #request.target_usr_id#]</cfoutput></div>			
+<div style="text-align:right;color:#3945cb; padding:0 20px 7px 0;"><cfoutput query="qSubject">Оцениваемый сотрудник: #firstname# #middlename# #lastname# [#login# #request.target_usr_id#]</cfoutput></div>			
 <table border="0" cellpadding="0" cellspacing="0" class="voteMenu">
 <tr><td align="center" valign="middle">		
 	

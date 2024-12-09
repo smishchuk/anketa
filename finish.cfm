@@ -37,7 +37,7 @@ select (case when dt_completed is null then 0 else 1 end) as closed from respons
 			</a></td>
 		</tr>
 		</table>
-		<div style="text-align:right;color:#cb3945; padding-right:20px;"><cfoutput query="qSubject">Оцениваемый сотрудник: #shortname#</cfoutput></div>		
+		<div style="text-align:right;color:#3945cb; padding-right:20px;"><cfoutput query="qSubject">Оцениваемый сотрудник: #shortname#</cfoutput></div>		
 		<!-- /header -->					
 
 	</td>

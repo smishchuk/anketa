@@ -10,10 +10,7 @@
   	<cfset this.sessionmanagement="Yes"/>
   	<cfset this.clientmanagement="No"/>
   	<cfset this.sessiontimeout=CreateTimeSpan(0, 0, 120, 0)/>
-  	<cfset this.setclientcookies="No"/>
-	
-		
-	
+  	<cfset this.setclientcookies="No"/>	
 	
 	<cfset request.thisPage=getFileFromPath(getBaseTemplatePath())>
 
@@ -192,6 +189,9 @@
 		<cfcookie name="CFTOKEN" value="#session.CFTOKEN#">
 		
 		<cfinclude template="#ARGUMENTS.template#"/>
+		
+<!--- 		<cfdump var=#request#/>
+		<cfdump var=#this.datasources#/> --->
 		
 		
 

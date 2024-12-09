@@ -1,7 +1,7 @@
 <tr valign="bottom">
 	<td>
 		<!-- footer -->
-		<div style="text-align: right; margin: 10px 20px 10px 10px;">
+		<div style="text-align: right; margin: 10px 20px 10px 10px; color:#23b">
 			
 			<cfquery name="qRespondent" datasource="#request.DS#">
 				select u.login, u.firstname, u.middlename, u.lastname from respondent u

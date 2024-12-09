@@ -34,19 +34,19 @@ border-top-width: 0px;
 border-style: dotted;
 }
 
-.voteMenu a.Sel, .voteMenu a:link.Sel, .voteMenu a:visited.Sel { font-weight: bold;font-size:80%;color:#cb3945;text-decoration:none;
+.voteMenu a.Sel, .voteMenu a:link.Sel, .voteMenu a:visited.Sel { font-weight: bold;font-size:80%;color:#3945bb;text-decoration:none;
 background-color: transparent;
-border-color: #cb3945;
+border-color: #3945cb;
 border-bottom-width: 1px;
 border-left-width: 0px;
 border-right-width: 0px;
 border-top-width: 0px;
 border-style: dotted;
 }
-.voteMenu a:hover.Sel {color:#cb3945;
+.voteMenu a:hover.Sel {color:#3945cb;
 text-decoration: none;
 background-color: transparent;
-border-color: #cb3945;
+border-color: #3945cb;
 border-bottom-width: 1px;
 border-left-width: 0px;
 border-right-width: 0px;
@@ -83,10 +83,10 @@ border-right-width: 0px;
 border-top-width: 0px;
 border-style: dotted;
 }
-.voteMenu a:hover.Off {color:#777777;
+.voteMenu a:hover.Off {color:#6677aa;
 text-decoration: none;
 background-color: transparent;
-border-color: #777777;
+border-color: #6677aa;
 border-bottom-width: 1px;
 border-left-width: 0px;
 border-right-width: 0px;
@@ -102,11 +102,11 @@ border-style: dotted;
 /* error */
 .voteError {font-size:230%;color:#49c672;vertical-align:top}
 .voteErrorInfo {font-size:110%;color:#000000;vertical-align:bottom}
-
+2024-12-05 18:34:202024-12-05 18:34:232024-12-05 18:34:242024-12-05 18:34:242024-12-05 18:34:24
 
 /* login */
 .voteLogin {width:400px;border:1px solid #b7b7b7}
-.voteLogin .voteBkg {height:147px;border:1px solid #ffffff;background:#f3f3f3;}
+.voteLogin .voteBkg {height:147px;border:1px solid #ffffff;background:#d0ddff;}
 .voteLoginHead {font-size:150%;color:#000000;padding:7px 0px}
 .voteLoginForm td {color:#000000;font-weight:bold}
 .voteLoginForm input {color:#000000;background:#ffffff;border:1px solid #c5c5c5}
