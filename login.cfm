@@ -45,6 +45,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" height="100%" align="center">
 		<tr>
 			<td>
+	Себастьян Перейра здесь был
 
 				<form action="<cfoutput>#request.thisPage#</cfoutput>" method="post">
 				<div class="voteLoginHead">Вход в систему</div>
